@@ -30,14 +30,14 @@ public class TodoServiceImpl implements TodoService{
         target.setId(dto.getId());
         target.setTitle(dto.getTitle());
         target.setContent(dto.getContent());
-        target.setChecked(dto.isChecked());
+        target.setIsChecked(dto.getIsChecked());
 
         TodoEntity todo = todoDAO.createTodo(target);
         logger.info("[TodoService] createTodo 완료 id : ", todo.getId() );
         dto.setId(todo.getId());
         dto.setTitle(todo.getTitle());
         dto.setContent(todo.getContent());
-        dto.setChecked(todo.isChecked());
+        dto.setIsChecked(todo.getIsChecked());
 
         return dto;
     }
@@ -50,7 +50,7 @@ public class TodoServiceImpl implements TodoService{
         target.setId(todo.getId());
         target.setTitle(todo.getTitle());
         target.setContent(todo.getContent());
-        target.setChecked(todo.isChecked());
+        target.setIsChecked(todo.getIsChecked());
         logger.info("[TodoService] readTodo 완료, id : ", target.getId() );
 
         return target;
@@ -65,7 +65,7 @@ public class TodoServiceImpl implements TodoService{
             target.setId(todo.getId());
             target.setTitle(todo.getTitle());
             target.setContent(todo.getContent());
-            target.setChecked(todo.isChecked());
+            target.setIsChecked(todo.getIsChecked());
             targetList.add(target);
         }
         logger.info("[TodoService] readAllTodo 완료" );
@@ -80,14 +80,14 @@ public class TodoServiceImpl implements TodoService{
         target.setId(dto.getId());
         target.setTitle(dto.getTitle());
         target.setContent(dto.getContent());
-        target.setChecked(dto.isChecked());
-
+        target.setIsChecked(dto.getIsChecked());
+        logger.info("[TodoService] updateTodo 완료, id : {}, checked : {}",id, dto.getIsChecked() );
         TodoEntity todo =  todoDAO.updateTodo(target, id);
         logger.info("[TodoService] updateTodo 완료, id : ",id );
         dto.setId(todo.getId());
         dto.setTitle(todo.getTitle());
         dto.setContent(todo.getContent());
-        dto.setChecked(todo.isChecked());
+        dto.setIsChecked(todo.getIsChecked());
 
 
         return dto;

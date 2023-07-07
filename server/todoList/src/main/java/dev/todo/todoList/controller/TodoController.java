@@ -56,8 +56,9 @@ public class TodoController {
     public ResponseEntity<TodoDTO> updateTodo(
             @RequestBody TodoDTO dto
     ){
+        logger.info("{}", dto.getIsChecked());
         TodoDTO target = this.todoService.updateTodo(dto, dto.getId());
-        logger.info("[TodoController] updateTodo 완료" );
+        logger.info("[TodoController] updateTodo 완료 checked : {}", dto.getIsChecked() );
         return ResponseEntity.status(200).body(target);
     }
 

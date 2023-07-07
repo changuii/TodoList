@@ -25,7 +25,7 @@ public class TodoEntity {
 
 
     @Column(nullable = false)
-    private boolean isChecked;
+    private Boolean isChecked;
 
 
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -117,6 +119,8 @@ class HomePage extends StatelessWidget {
   }
 
   AppBar build_Appbar() {
+    TodoController ctrl = Get.put(TodoController());
+    ctrl.reloadTodoList();
     return AppBar(
       title: Text(
         "Todo List",

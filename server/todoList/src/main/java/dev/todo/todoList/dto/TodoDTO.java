@@ -12,5 +12,5 @@ public class TodoDTO {
     private Long id;
     private String title;
     private String content;
-    private boolean isChecked;
+    private Boolean isChecked;
 }

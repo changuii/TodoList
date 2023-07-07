@@ -19,4 +19,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/todo/**", "/todo").permitAll();
     }
+
+
+
+
 }
