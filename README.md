@@ -4,10 +4,11 @@
 간단한 TodoList 제작  
 
 
-| 종류 | 기술 |
-| ---- | ---- |
-| Client     | Flutter     |
-|   Server   |  Spring Boot    |
+| 종류     | 기술              |
+| -------- | ----------------- |
+| Client   | Flutter           |
+| Server   | Spring Boot       |
+| Database | MySQL / workbench |
 
 제작기간 2023/07/05 ~
 
