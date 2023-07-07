@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:todo_application/Todo.dart';
+import 'package:todo_application/TodoController.dart';
+import 'package:get/get.dart';
+import 'TodoValue.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,27 +29,87 @@ class HomePage extends StatelessWidget {
         appBar: build_Appbar(),
         body: build_Body(),
         floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add_box_outlined,
+            color: Colors.amber[800],
+          ),
+          backgroundColor: Colors.amber[200],
           onPressed: () {
-            Get.dialog(AlertDialog(
-              title: Text("Create Todo"),
-              content: SizedBox(
-                height: Get.height / 2,
-                child: Column(children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(2),
-                          borderSide: BorderSide()),
+            TodoValue target = TodoValue();
+            String title = "New Todo";
+            String content = "explain plz";
+            Get.dialog(
+                AlertDialog(
+                  title: Text("Create Todo"),
+                  content: SizedBox(
+                    height: Get.height / 3,
+                    child: SingleChildScrollView(
+                      child: Column(children: [
+                        Text("Please save the value to make Todo"),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: "Title",
+                            hintText: "Please input data",
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide()),
+                          ),
+                          maxLength: 20,
+                          onChanged: (value) {
+                            title = value;
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                          width: Get.width,
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: "Content",
+                            hintText: "Please input data",
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide()),
+                          ),
+                          maxLength: 70,
+                          onChanged: (value) {
+                            content = value;
+                          },
+                        ),
+                        SizedBox(
+                          height: Get.height / 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            OutlinedButton(
+                                onPressed: () {
+                                  target.title = title;
+                                  target.content = content;
+                                  TodoController controller =
+                                      Get.put(TodoController());
+                                  controller.createTodo(
+                                      target, controller.TodoList.length);
+                                  Get.back(closeOverlays: true);
+                                },
+                                child: Text("저장")),
+                            OutlinedButton(
+                                onPressed: () {
+                                  Get.back(closeOverlays: true);
+                                },
+                                child: Text("취소")),
+                          ],
+                        )
+                      ]),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("Input Content"),
-                  TextField(),
-                ]),
-              ),
-            ));
+                ),
+                barrierDismissible: false);
           },
         ),
       ),
@@ -68,13 +131,16 @@ class HomePage extends StatelessWidget {
   }
 
   Widget build_Body() {
+    Get.put(TodoController());
     return Center(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Todo();
-        },
-        itemCount: 10,
-      ),
+      child: GetX<TodoController>(builder: (controller) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            return Todo(index);
+          },
+          itemCount: controller.TodoList.length,
+        );
+      }),
     );
   }
 }
