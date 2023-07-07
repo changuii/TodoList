@@ -37,14 +37,17 @@ class Todo extends StatelessWidget {
                         size: 15,
                       ),
                       Text(
+                        // Todo title을 불러온다.
                         " ${controller.TodoList[index]!.title}",
                       ),
                     ],
                   ),
+                  // Todo Content를 불러온다.
                   Text("${controller.TodoList[index]!.content}"),
                   Row(
                     children: [
                       Text("  Complete : "),
+                      // Todo의 완료 여부를 CheckBox로 표시한다.
                       Checkbox(
                         value: controller.TodoList[index]!.isChecked,
                         onChanged: (value) {
@@ -59,6 +62,7 @@ class Todo extends StatelessWidget {
             }),
           ),
         ),
+        // Todo를 클릭할 경우 수정할지 아니면 삭제할지를 선택할 수 있다.
         SizedBox(
           height: Get.height / 8 + 10,
           width: Get.width,
@@ -76,6 +80,7 @@ class Todo extends StatelessWidget {
               String changeContent = TodoCtrl.TodoList[index]!.content;
               checkBoxController checkCtrl = Get.put(checkBoxController());
               checkCtrl.isChecked.value = TodoCtrl.TodoList[index]!.isChecked;
+              // dialog를 띄운다.
               Get.dialog(
                   AlertDialog(
                     title: Text("Update or Delete"),
@@ -89,6 +94,7 @@ class Todo extends StatelessWidget {
                             children: [
                               Text("Complated : "),
                               GetX<checkBoxController>(builder: (controller) {
+                                // 선택한 Todo가 완료여부를 수정할 수 있도록 체크박스를 만들었다.
                                 return Checkbox(
                                   value: checkCtrl.isChecked.value,
                                   onChanged: (chekced) {
@@ -101,6 +107,7 @@ class Todo extends StatelessWidget {
                           SizedBox(
                             height: 10,
                           ),
+                          // Title과 Content값을 수정하는 TextField
                           TextField(
                             maxLength: 20,
                             decoration: InputDecoration(
@@ -136,6 +143,7 @@ class Todo extends StatelessWidget {
                             children: [
                               OutlinedButton(
                                 onPressed: () {
+                                  // 수정된 값을 저장하는 버튼
                                   TodoValue target = TodoCtrl.TodoList[index]!;
                                   target.title = changeTitle;
                                   target.content = changeContent;
@@ -151,6 +159,7 @@ class Todo extends StatelessWidget {
                                 },
                                 child: Text("Cancel"),
                               ),
+                              // Todo를 삭제한다.
                               OutlinedButton(
                                 onPressed: () {
                                   TodoCtrl.deleteTodo(index);

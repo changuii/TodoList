@@ -15,7 +15,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return HomePage();
@@ -26,10 +25,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      // debug 배너 false
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: build_Appbar(),
         body: build_Body(),
+        // Todo생성 버튼
         floatingActionButton: FloatingActionButton(
           child: Icon(
             Icons.add_box_outlined,
@@ -40,11 +41,14 @@ class HomePage extends StatelessWidget {
             TodoValue target = TodoValue();
             String title = "New Todo";
             String content = "explain plz";
+            // dialog를 띄운다.
             Get.dialog(
+                // AlertDialog 띄운다.
                 AlertDialog(
                   title: Text("Create Todo"),
                   content: SizedBox(
                     height: Get.height / 3,
+                    // 키보드를 띄울 때 화면이 깨지는 문제 해결
                     child: SingleChildScrollView(
                       child: Column(children: [
                         Text("Please save the value to make Todo"),
@@ -55,11 +59,13 @@ class HomePage extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "Title",
                             hintText: "Please input data",
+                            // TextField 모서리를 둥글게 깍는다.
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                                 borderSide: BorderSide()),
                           ),
+                          // 최대 길이 20
                           maxLength: 20,
                           onChanged: (value) {
                             title = value;
@@ -118,7 +124,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  // Appbar 그리기
   AppBar build_Appbar() {
+    // 앱 실행시 서버로부터 모든 Todo를 가져온다.
+    // URI : /todo
+    // Method : GET
     TodoController ctrl = Get.put(TodoController());
     ctrl.reloadTodoList();
     return AppBar(
@@ -137,11 +147,14 @@ class HomePage extends StatelessWidget {
   Widget build_Body() {
     Get.put(TodoController());
     return Center(
+      // 메인화면 Todo들을 홈 화면에 그려준다.
       child: GetX<TodoController>(builder: (controller) {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Todo(index);
           },
+          // TodoController의 TodoList의 길이만큼 홈화면에 위젯을 그려준다.
+          // TodoList는 TodoValue, Todo위젯에 필요한 값들을 Map형태로 담고 있다.
           itemCount: controller.TodoList.length,
         );
       }),
