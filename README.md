@@ -9,6 +9,7 @@
 | Client   | Flutter           |
 | Server   | Spring Boot       |
 | Database | MySQL / workbench |
+|ORM|Jpa, Hibernate|
 
 제작기간 2023/07/05 ~
 
