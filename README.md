@@ -12,6 +12,11 @@
 
 제작기간 2023/07/05 ~
 
+## gif
+
+![TodoGif](https://github.com/changuii/TodoList/assets/122252160/ad4d532a-7c39-4cc4-ac72-742993ab82ca)
+
+
 ## 서버 요청, 응답
 
 ### createTodo
