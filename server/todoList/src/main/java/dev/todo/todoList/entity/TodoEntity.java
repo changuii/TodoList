@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+
+// Entity 객체 DB에 넣을 때 사용
 @Table()
 @Entity
 @Setter

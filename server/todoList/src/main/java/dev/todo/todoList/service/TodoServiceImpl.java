@@ -12,11 +12,17 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Service 구현 객체
 @Service
 public class TodoServiceImpl implements TodoService{
+
+    // logger
     private static final Logger logger = LoggerFactory.getLogger(TodoServiceImpl.class);
+    // TodoDAO
     private final TodoDAO todoDAO;
 
+    // Bean객체인 TodoDAO를 주입한다.
     @Autowired
     public TodoServiceImpl(
             TodoDAOImpl todoDAO
@@ -24,8 +30,10 @@ public class TodoServiceImpl implements TodoService{
         this.todoDAO = todoDAO;
     }
 
+    //Create Todo 비즈니스 로직
     @Override
     public TodoDTO createTodo(TodoDTO dto) {
+        // 받아온 dto값을 Entity 객체로 바꿔준다.
         TodoEntity target = new TodoEntity();
         target.setId(dto.getId());
         target.setTitle(dto.getTitle());
@@ -34,6 +42,7 @@ public class TodoServiceImpl implements TodoService{
 
         TodoEntity todo = todoDAO.createTodo(target);
         logger.info("[TodoService] createTodo 완료 id : ", todo.getId() );
+        // database에 저장하고 받은 값을 다시 controller로 반환한다.
         dto.setId(todo.getId());
         dto.setTitle(todo.getTitle());
         dto.setContent(todo.getContent());
@@ -59,6 +68,7 @@ public class TodoServiceImpl implements TodoService{
     @Override
     public List<TodoDTO> readAllTodo() {
         List<TodoEntity> todoList = todoDAO.readAllTodo();
+        // 받아온 Entity값들을 TodoDTO값으로 모두 바꿔준다.
         List<TodoDTO> targetList = new ArrayList<>();
         for(TodoEntity todo : todoList){
             TodoDTO target = new TodoDTO();
@@ -81,7 +91,7 @@ public class TodoServiceImpl implements TodoService{
         target.setTitle(dto.getTitle());
         target.setContent(dto.getContent());
         target.setIsChecked(dto.getIsChecked());
-        logger.info("[TodoService] updateTodo 완료, id : {}, checked : {}",id, dto.getIsChecked() );
+        logger.info("[TodoService] updateTodo 완료");
         TodoEntity todo =  todoDAO.updateTodo(target, id);
         logger.info("[TodoService] updateTodo 완료, id : ",id );
         dto.setId(todo.getId());

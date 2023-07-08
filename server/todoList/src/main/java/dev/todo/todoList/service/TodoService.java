@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+// Service interface
 public interface TodoService {
 
     TodoDTO createTodo(TodoDTO dto);

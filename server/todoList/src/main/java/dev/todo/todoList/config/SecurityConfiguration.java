@@ -9,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
+    // security설정
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.httpBasic().disable()

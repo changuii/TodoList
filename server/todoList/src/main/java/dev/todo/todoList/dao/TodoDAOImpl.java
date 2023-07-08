@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class TodoDAOImpl implements TodoDAO{
@@ -25,9 +24,9 @@ public class TodoDAOImpl implements TodoDAO{
 
     @Override
     public TodoEntity createTodo(TodoEntity target) {
-        this.todoRepository.save(target);
+        TodoEntity result = this.todoRepository.save(target);
         logger.info("[TodoDAO] : TodoEntity 생성 완료 id : ", target.getId());
-        return target;
+        return result;
     }
 
     @Override

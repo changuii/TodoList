@@ -3,6 +3,8 @@ package dev.todo.todoList.dto;
 
 import lombok.*;
 
+
+// Data Transfer Object
 @Getter
 @Setter
 @ToString
